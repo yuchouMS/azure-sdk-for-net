@@ -11,9 +11,13 @@
   <PropertyGroup>
     <TargetFrameworks>net452;netstandard1.4</TargetFrameworks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.4' ">
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
@@ -23,6 +27,6 @@
     <Reference Include="System.Runtime" />
     <Reference Include="System.Runtime.Serialization" />
 
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    
   </ItemGroup>  
 </Project>

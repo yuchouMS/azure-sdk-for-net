@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$([MSBuild]::GetPathOfFileAbove('AzSdk.props'))" />
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('AzSdk.reference.props'))" />
   <PropertyGroup>
     <PackageId>Microsoft.Azure.KeyVault.WebKey</PackageId>
     <Description>Microsoft Azure Key Vault WebKey Class Library</Description>
@@ -12,9 +13,6 @@
     <TargetFrameworks>net452;netstandard1.4</TargetFrameworks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-  </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.4' ">
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="1.0.2" />

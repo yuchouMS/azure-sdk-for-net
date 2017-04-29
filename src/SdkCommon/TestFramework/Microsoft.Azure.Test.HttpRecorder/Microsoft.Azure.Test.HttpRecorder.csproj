@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$([MSBuild]::GetPathOfFileAbove('test.props'))" />
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('CR.test.reference.props'))" />
   <PropertyGroup>
     <Description>Microsoft.Azure.Test.HttpRecorder</Description>
     <AssemblyTitle>HttpRecorder Library for recording Clinet/Server communication in Azure</AssemblyTitle>
@@ -13,7 +13,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
   </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">

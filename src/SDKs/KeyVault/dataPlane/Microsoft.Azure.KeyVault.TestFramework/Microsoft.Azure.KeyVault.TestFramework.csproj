@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$([MSBuild]::GetPathOfFileAbove('AzSdk.test.reference.props'))" />
+  <!--<Import Project="$([MSBuild]::GetPathOfFileAbove('AzSdk.test.reference.props'))" />-->
   <PropertyGroup>
     <Description>Microsoft Azure Key Vault Test Framework</Description>
     <AssemblyTitle>Microsoft Azure Key Vault Test Framework</AssemblyTitle>
@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.Azure.KeyVault\Microsoft.Azure.KeyVault.csproj" />
+    <ProjectReference Include="$(LibrarySourceFolder)\SdkCommon\TestFramework\Microsoft.Azure.Test.HttpRecorder\Microsoft.Azure.Test.HttpRecorder.csproj" />
+    <ProjectReference Include="$(LibrarySourceFolder)\SdkCommon\TestFramework\ClientRuntime.Azure.TestFramework\Microsoft.Rest.ClientRuntime.Azure.TestFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,5 +21,8 @@
     <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="1.1.4-preview" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.0.2" />
+
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="[3.13.5]" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="[5.1.2]" />
   </ItemGroup>
 </Project>

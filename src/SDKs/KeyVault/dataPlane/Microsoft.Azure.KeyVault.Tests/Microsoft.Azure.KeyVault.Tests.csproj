@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$([MSBuild]::GetPathOfFileAbove('AzSdk.test.reference.props'))" />
+  <!--<Import Project="$([MSBuild]::GetPathOfFileAbove('AzSdk.test.reference.props'))" />-->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('test.props'))" />
   <PropertyGroup>
     <PackageId>Microsoft.Azure.KeyVault.Tests</PackageId>
     <Description>Microsoft.Azure.KeyVault.Tests Class Library</Description>
@@ -22,10 +23,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.Azure.KeyVault\Microsoft.Azure.KeyVault.csproj" />
     <ProjectReference Include="..\Microsoft.Azure.KeyVault.TestFramework\Microsoft.Azure.KeyVault.TestFramework.csproj" />
+    <ProjectReference Include="$(LibrarySourceFolder)\SdkCommon\TestFramework\Microsoft.Azure.Test.HttpRecorder\Microsoft.Azure.Test.HttpRecorder.csproj" />
+    <ProjectReference Include="$(LibrarySourceFolder)\SdkCommon\TestFramework\ClientRuntime.Azure.TestFramework\Microsoft.Rest.ClientRuntime.Azure.TestFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">
-    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.13.9" />
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.13.5" />
   </ItemGroup>
 
   <ItemGroup>

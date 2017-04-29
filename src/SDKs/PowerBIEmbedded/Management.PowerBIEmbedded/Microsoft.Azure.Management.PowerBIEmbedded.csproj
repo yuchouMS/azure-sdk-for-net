@@ -12,7 +12,4 @@
     <TargetFrameworks>net452;netstandard1.4</TargetFrameworks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-  </ItemGroup>
 </Project>

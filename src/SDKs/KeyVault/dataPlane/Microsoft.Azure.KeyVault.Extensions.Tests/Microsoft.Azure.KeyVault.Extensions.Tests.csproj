@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$([MSBuild]::GetPathOfFileAbove('AzSdk.test.reference.props'))" />
+  <!--<Import Project="$([MSBuild]::GetPathOfFileAbove('AzSdk.test.reference.props'))" />-->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('test.props'))" />
   <PropertyGroup>
     <PackageId>Microsoft.Azure.KeyVault.Extensions.Tests</PackageId>
     <Description>Microsoft Azure Key Vault Extensions tests</Description>
@@ -21,6 +22,9 @@
     <ProjectReference Include="..\Microsoft.Azure.KeyVault.Extensions\Microsoft.Azure.KeyVault.Extensions.csproj" />
     <ProjectReference Include="..\Microsoft.Azure.KeyVault.Core\Microsoft.Azure.KeyVault.Core.csproj" />
     <ProjectReference Include="..\Microsoft.Azure.KeyVault.TestFramework\Microsoft.Azure.KeyVault.TestFramework.csproj" />
+
+    <ProjectReference Include="$(LibrarySourceFolder)\SdkCommon\TestFramework\Microsoft.Azure.Test.HttpRecorder\Microsoft.Azure.Test.HttpRecorder.csproj" />
+    <ProjectReference Include="$(LibrarySourceFolder)\SdkCommon\TestFramework\ClientRuntime.Azure.TestFramework\Microsoft.Rest.ClientRuntime.Azure.TestFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="SessionRecords\**\*.json">
