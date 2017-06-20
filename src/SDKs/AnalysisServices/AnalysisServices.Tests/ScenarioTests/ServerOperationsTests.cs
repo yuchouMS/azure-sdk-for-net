@@ -59,9 +59,8 @@ namespace AnalysisServices.Tests.ScenarioTests
                 Assert.NotEmpty(resultGet.ServerFullName);
                 Assert.Equal(2, resultGet.Tags.Count);
                 Assert.True(resultGet.Tags.ContainsKey("key1"));
-                Assert.Equal(2, resultGet.AsAdministrators.Members.Count);
-                //Assert.Equal(AnalysisServicesTestUtilities.DefaultBakcupStorageAccount, resultGet.BackupConfiguration.StorageAccount);    // TODO (yuchou): Roget will updates the new backup configuration
-                //Assert.Equal(AnalysisServicesTestUtilities.DefaultBackupBlobContainer, resultGet.BackupConfiguration.BlobContainer);
+                Assert.Equal(resultGet.AsAdministrators.Members.Count, 2);
+                Assert.Equal(AnalysisServicesTestUtilities.DefaultBackupBlobContainerUri, resultGet.BackupBlobContainerUri);
                 Assert.Equal("Microsoft.AnalysisServices/servers", resultGet.Type);
 
                 // Confirm that the server creation did succeed
@@ -75,16 +74,15 @@ namespace AnalysisServices.Tests.ScenarioTests
                     };
 
                 var updatedAdministrators = AnalysisServicesTestUtilities.DefaultAdministrators;
-                updatedAdministrators.Add("aztest2@stabletest.ccsctp.net");
-                string secondBackupStorageAccountAccessKey = Environment.GetEnvironmentVariable("AAS_SECOND_BACKUP_STORAGE_ACCESS_KEY");
-                BackupConfiguration updatedBackupConfiguration = new BackupConfiguration("FT_Permanent_Group_A/stabletestbackupsa2", "backups", secondBackupStorageAccountAccessKey);
+                updatedAdministrators.Add("aztest2@aspaas.ccsctp.net");
+                string updatedBackupBlobContainerUri = Environment.GetEnvironmentVariable("AAS_SECOND_BACKUP_BLOB_CONTAINER_URI");
 
                 AnalysisServicesServerUpdateParameters updateParameters = new AnalysisServicesServerUpdateParameters()
                     {
                         Sku = resultGet.Sku,
                         Tags = updatedTags,
                         AsAdministrators = new ServerAdministrators(updatedAdministrators),
-                        BackupConfiguration = updatedBackupConfiguration
+                        BackupBlobContainerUri = updatedBackupBlobContainerUri
                 };
 
                 var resultUpdate = client.Servers.Update(
@@ -104,9 +102,8 @@ namespace AnalysisServices.Tests.ScenarioTests
                 Assert.Equal(AnalysisServicesTestUtilities.DefaultServerName, resultGet.Name);
                 Assert.Equal(1, resultGet.Tags.Count);
                 Assert.True(resultGet.Tags.ContainsKey("updated1"));
-                Assert.Equal(3, resultGet.AsAdministrators.Members.Count);
-                //Assert.Equal("FT_Permanent_Group_A/stabletestbackupsa2", resultGet.BackupConfiguration.StorageAccount);   // TODO (yuchou): Roget will updates the new backup configuration
-                //Assert.Equal("backups", resultGet.BackupConfiguration.BlobContainer);
+                Assert.Equal(resultGet.AsAdministrators.Members.Count, 3);
+                Assert.Equal(updatedBackupBlobContainerUri, resultGet.BackupBlobContainerUri);
 
                 // Create another server and ensure that list account returns both
                 var secondServer = AnalysisServicesTestUtilities.DefaultServerName + '2';
@@ -115,7 +112,7 @@ namespace AnalysisServices.Tests.ScenarioTests
                                     secondServer,
                                     analysisServicesServer);
 
-                resultGet = client.Servers.GetDetails(AnalysisServicesTestUtilities.DefaultResourceGroup, AnalysisServicesTestUtilities.DefaultServerName);
+                resultGet = client.Servers.GetDetails(AnalysisServicesTestUtilities.DefaultResourceGroup, secondServer);
 
                 var listResponse = client.Servers.List();
 
