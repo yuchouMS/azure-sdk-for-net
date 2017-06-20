@@ -41,8 +41,8 @@ namespace AnalysisServices.Tests.Helpers
         public static string DefaultLocation = "West US";
         public static ResourceSku DefaultSku = new ResourceSku
         {
-            Name = SkuName.S1.ToString(),
-            Tier = SkuTier.Standard.ToString()
+            Name = "S1",
+            Tier = "Standard"
         };
 
         public static Dictionary<string, string> DefaultTags = new Dictionary<string, string>
