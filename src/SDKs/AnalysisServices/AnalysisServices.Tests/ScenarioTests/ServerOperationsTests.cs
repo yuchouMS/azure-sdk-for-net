@@ -60,7 +60,7 @@ namespace AnalysisServices.Tests.ScenarioTests
                 Assert.Equal(2, resultGet.Tags.Count);
                 Assert.True(resultGet.Tags.ContainsKey("key1"));
                 Assert.Equal(resultGet.AsAdministrators.Members.Count, 2);
-                Assert.Equal(AnalysisServicesTestUtilities.DefaultBackupBlobContainerUri, resultGet.BackupBlobContainerUri);
+                Assert.Equal(AnalysisServicesTestUtilities.DefaultBackupBlobContainerUri.Split('?')[0], resultGet.BackupBlobContainerUri);
                 Assert.Equal("Microsoft.AnalysisServices/servers", resultGet.Type);
 
                 // Confirm that the server creation did succeed
@@ -85,11 +85,19 @@ namespace AnalysisServices.Tests.ScenarioTests
                         BackupBlobContainerUri = updatedBackupBlobContainerUri
                 };
 
-                var resultUpdate = client.Servers.Update(
+                AnalysisServicesServer resultUpdate = null;
+                try
+                {
+                    resultUpdate =
+                        client.Servers.Update(
                                 AnalysisServicesTestUtilities.DefaultResourceGroup,
                                 AnalysisServicesTestUtilities.DefaultServerName,
-                                updateParameters
-                                );
+                                updateParameters);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
 
                 Assert.Equal("Succeeded", resultUpdate.ProvisioningState);
                 Assert.Equal("Succeeded", resultUpdate.State);
@@ -103,7 +111,7 @@ namespace AnalysisServices.Tests.ScenarioTests
                 Assert.Equal(1, resultGet.Tags.Count);
                 Assert.True(resultGet.Tags.ContainsKey("updated1"));
                 Assert.Equal(resultGet.AsAdministrators.Members.Count, 3);
-                Assert.Equal(updatedBackupBlobContainerUri, resultGet.BackupBlobContainerUri);
+                Assert.Equal(updatedBackupBlobContainerUri.Split('?')[0], resultGet.BackupBlobContainerUri);
 
                 // Create another server and ensure that list account returns both
                 var secondServer = AnalysisServicesTestUtilities.DefaultServerName + '2';
